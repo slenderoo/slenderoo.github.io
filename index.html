@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Renn</title>
+
+<link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --black:#000;
+  --gray:#1a1a1a;
+  --gold:#a79d8a;
+  --red:#130c0c;
+  --text:#dcdcdc;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+
+/* фон */
+body {
+  background: url('wall.png') center/cover no-repeat fixed;
+  color: var(--text);
+  font-family: "Cinzel", serif;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* затемнение поверх фото */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  z-index: -1;
+}
+
+/* плавное интро с именем */
+#intro {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  animation: fadeOut 2s ease 2.5s forwards;
+}
+#intro h1 {
+  font-family: "UnifrakturCook", serif;
+  font-size: 5rem;
+  color: var(--text);
+  text-shadow:
+    0 0 15px var(--text),
+    0 0 30px var(--text),
+    0 0 45px var(--gray);
+  opacity: 0;
+  animation: fadeInText 2s ease forwards 0.5s;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+@keyframes fadeInText {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* контейнер */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 80px 20px 120px;
+  text-align: center;
+  position: relative;
+}
+
+/* декоративная цепь сверху */
+.chain {
+  width: 2px;
+  height: 120px;
+  background: linear-gradient(#444,#111);
+  margin: 0 auto;
+  position: relative;
+}
+.chain::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  border: 2px solid #444;
+  border-radius: 50%;
+  transform: translateX(-50%);
+}
+
+/* имя */
+h1.site-name {
+  font-family: "UnifrakturCook", serif;
+  font-size: 64px;
+  color: var(--gold);
+  text-shadow: 0 0 12px rgba(151, 144, 131, 0.3);
+  margin-top: 40px;
+  animation: fadeIn 2s ease 2s both;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px)
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* разделитель крест */
+.divider {
+  width: 26px;
+  height: 70px;
+  margin: 40px auto;
+  background: linear-gradient(#222,#555);
+  position: relative;
+}
+.divider::before {
+  content: "";
+  position: absolute;
+  top: 24px;
+  left: -22px;
+  width: 70px;
+  height: 20px;
+  background: linear-gradient(#222,#555);
+}
+
+/* блоки */
+.section {
+  margin: 40px auto;
+  background: rgba(30, 20, 30, 0.3);
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(8px);
+  padding: 20px;
+  box-shadow: 0 0 30px rgba(0,0,0,.7);
+  transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
+}
+.section:hover {
+  transform: translateY(-6px) rotateX(2deg);
+  box-shadow: 0 0 50px rgba(78, 71, 57, 0.3);
+  background: rgba(40, 25, 40, 0.5);
+}
+
+/* соцсети */
+a {
+  display: inline-block;
+  padding: 6px 14px;
+  margin: 0 6px;
+  border-radius: 10px;
+  background: rgba(60, 10, 10, 0.3);
+  color: var(--text);
+  font-size: 14px;
+  transition: all 0.3s ease;
+  text-shadow: 0 0 2px #000;
+  text-decoration: none;
+}
+a:hover {
+  color: var(--gold);
+  background: rgba(177,151,99,0.2);
+  box-shadow: 0 0 15px rgba(92, 90, 85, 0.6);
+  transform: scale(1.1);
+}
+
+/* туман (CSS-анимация) */
+.smoke {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(255,255,255,0.05) 10%, transparent 70%);
+  opacity: 0.2;
+  animation: smokeMove 60s linear infinite;
+}
+@keyframes smokeMove {
+  0% {
+    transform: translateX(0) translateY(0) scale(1);
+  }
+  50% {
+    transform: translateX(-50px) translateY(-20px) scale(1.05);
+  }
+  100% {
+    transform: translateX(0) translateY(0) scale(1);
+  }
+}
+
+/* адаптив */
+@media(max-width:600px){
+  h1.site-name {
+    font-size: 44px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Интро с плавным появлением имени -->
+<div id="intro">
+  <h1> Welcome </h1>
+</div>
+
+<div class="smoke"></div>
+
+<div class="container">
+
+  <div class="chain"></div>
+
+  <h1 class="site-name">Ренн</h1>
+
+  <div class="section">
+    <p>интроверт · меланхолик · INFP</p>
+  </div>
+
+  <div class="section">
+    <p>пум пум пум</p>
+  </div>
+
+  <div class="section">
+    <p>не знаю что тут написать</p>
+    <p>не знаю что тут написать</p>
+    <p>не знаю что тут написать</p>
+  </div>
+
+  <div class="section">
+    <p>
+      <a href="https://t.me/slenderoo">Telegram</a> |
+      <a href="https://instagram.com/slenderoo1">Instagram</a> |
+      <a href="https://tiktok.com/@slenderoo">TikTok</a>
+    </p>
+  </div>
+
+  <iframe data-testid="embed-iframe" style="border-radius:12px; opacity: 0.8;" src="https://open.spotify.com/embed/playlist/6p78lZLJUSEiN3fiZ2fDcw?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+  <iframe data-testid="embed-iframe" style="border-radius:12px; opacity: 0.8;" src="https://open.spotify.com/embed/playlist/6DBA9pCX3neq71RpozG573?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+  <iframe data-testid="embed-iframe" style="border-radius:12px; opacity: 0.8;" src="https://open.spotify.com/embed/playlist/6OArhDk2a70sqsx05b7BJz?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+  <iframe data-testid="embed-iframe" style="border-radius:12px; opacity: 0.8;" src="https://open.spotify.com/embed/playlist/48JqZ14mvUDY6aUAiKqGfM?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+
+</div>
+
+</body>
+</html>
